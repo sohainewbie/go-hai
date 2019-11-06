@@ -1,0 +1,37 @@
+{
+	"service" :{
+		"name" : "GetGo",
+		"port" : "6666",
+		"baseUrl" : "http://localhost:6666",
+		"version" : "1.0.0"
+	},
+	"database" : {
+		"mysql" : {
+			"name" : "sohai",
+			"host" : "127.0.0.1",
+			"port" : 3306,
+			"username" : "root",
+			"password" : "",
+			"logMode" : true
+		},
+		"postgres" : {
+			"name" : "sohai",
+			"host" : "127.0.0.1",
+			"port" : 5432,
+			"username" : "root",
+			"password" : "",
+			"ssl_mode": "disable",
+			"logMode" : true
+		},		
+		"redis": {
+			"db" : 1,
+			"host" : "127.0.0.1",
+			"port" : 6379,
+			"password" : ""
+		}
+	},
+	"internalService" : {
+	},	
+	"debugMode" : true,
+	"secretKey" : "KucingLiar666"
+}
