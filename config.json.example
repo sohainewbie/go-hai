@@ -1,6 +1,6 @@
 {
 	"service" :{
-		"name" : "GetGo",
+		"name" : "GoHai",
 		"port" : "6666",
 		"baseUrl" : "http://localhost:6666",
 		"version" : "1.0.0"
