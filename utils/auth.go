@@ -13,7 +13,7 @@ type BoxToken struct {
 }
 
 type UserContext struct {
-	Exp         uint64 `json:"exp"`
+	Exp uint64 `json:"exp"`
 }
 
 var EchoContext echo.Context
@@ -44,8 +44,8 @@ func Authorizer(roles ...string) echo.MiddlewareFunc {
 			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 				// do something
 				userContext := UserContext{
-									Exp:    uint64(claims["exp"].(float64)),
-								}
+					Exp: uint64(claims["exp"].(float64)),
+				}
 				c.Set("user", userContext)
 			} else {
 				return UnauthorizedResponse(c)

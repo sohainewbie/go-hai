@@ -10,14 +10,14 @@ import (
 )
 
 type DB struct {
-	DbMysql *gorm.DB
+	DbMysql    *gorm.DB
 	DbPostgres *gorm.DB
 }
 
 var (
-	onceDbMysql     sync.Once
-	onceDbPostgres  sync.Once
-	instanceDB *DB
+	onceDbMysql    sync.Once
+	onceDbPostgres sync.Once
+	instanceDB     *DB
 )
 
 // This connection for L4 application database (read only)
@@ -48,9 +48,9 @@ func GetInstancePostgresDb() *gorm.DB {
 	onceDbPostgres.Do(func() {
 		psqlInfo := Config.Database.Postgres
 		logs := fmt.Sprintf("[INFO] Connected to Postgre TYPE = %s | LogMode = %+v", psqlInfo.Host, psqlInfo.LogMode)
-		
-		dbConfig := "host=" + psqlInfo.Host + " port=" + fmt.Sprintf("%d", psqlInfo.Port)  + " user=" + psqlInfo.Username + " dbname=" + psqlInfo.Name + " sslmode=" + psqlInfo.SslMode + " fallback_application_name=gohai-service"
-		
+
+		dbConfig := "host=" + psqlInfo.Host + " port=" + fmt.Sprintf("%d", psqlInfo.Port) + " user=" + psqlInfo.Username + " dbname=" + psqlInfo.Name + " sslmode=" + psqlInfo.SslMode + " fallback_application_name=gohai-service"
+
 		if psqlInfo.Password != "" {
 			dbConfig += " password=" + psqlInfo.Password
 		}

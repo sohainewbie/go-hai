@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"log"
-	"io/ioutil"
 	"encoding/json"
+	"io/ioutil"
+	"log"
 )
 
 var Config config
@@ -23,7 +23,7 @@ type config struct {
 			Username string `json:"username"`
 			Password string `json:"password"`
 			LogMode  bool   `json:"logMode"`
-		}`json:"mysql"`
+		} `json:"mysql"`
 		Postgres struct {
 			Name     string `json:"name"`
 			Host     string `json:"host"`
@@ -32,18 +32,18 @@ type config struct {
 			Password string `json:"password"`
 			SslMode  string `json:"ssl_mode"`
 			LogMode  bool   `json:"logMode"`
-		}`json:"postgres"`		
+		} `json:"postgres"`
 		Redis struct {
-			DB       int `json:"db"`
+			DB       int    `json:"db"`
 			Host     string `json:"host"`
 			Port     int    `json:"port"`
 			Password string `json:"password"`
-		}`json:"redis"`
+		} `json:"redis"`
 	}
 	InternalService struct {
 	} `json:"internalService"`
-	DebugMode  bool   `json:"debugMode"`
-	SecretKey  string `json:"secretKey"`
+	DebugMode bool   `json:"debugMode"`
+	SecretKey string `json:"secretKey"`
 }
 
 func init() {

@@ -12,7 +12,7 @@ type DBRedis struct {
 }
 
 var (
-	onceDbRedis     sync.Once	
+	onceDbRedis     sync.Once
 	instanceDBRedis *DBRedis
 )
 
