@@ -1,5 +1,5 @@
 # go-hai
-Boilerplate golang with MVC structure
+Boilerplate golang with MVC structure with Echo framework.
 
 ###HOW TO START
 1. rename config.json.example into config.json
