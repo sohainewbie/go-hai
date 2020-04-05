@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/go-hai/utils"
 	"github.com/labstack/echo"
+	"github.com/sohainewbie/go-hai/utils"
 )
 
 //Index - first page for make sure this service is running well
