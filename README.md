@@ -3,17 +3,14 @@ Boilerplate golang with MVC structure with Echo framework.
 
 ###HOW TO START
 1. rename config.json.example into config.json
-2. make install
-3. go run *.go
-4. if you want to build just make build
-
-
+2. go run *.go
+3. if you want to build just make build
 
 ### A typical top-level directory layout
 	get-getgo/
     .
     ├── ...
-    ├── service/*.go         # you can put another service in here
+    ├── service/*.go          # you can put another service in here
     │   └── email.go          # this is example    
     ├── controller/*.go       # you can put all validation from router before you processing data into database
     │   └── index.go          # this is example
