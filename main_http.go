@@ -7,8 +7,8 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
-	"github.com/go-hai/controller"
-	"github.com/go-hai/utils"
+	"github.com/sohainewbie/go-hai/controller"
+	"github.com/sohainewbie/go-hai/utils"
 )
 
 // HTTPServeMain - function for handling http
@@ -46,9 +46,16 @@ func HTTPServeMain() {
 		}
 		logString += fmt.Sprintf("RESPONSE-STATUSCODE=%v\nRESPONSE-BODY=%s\n", res.Status, resBody)
 		logString += "----------------------------------------------------------------------------\n"
+		fmt.Println(logString)
 	}))
 
 	e.GET("/", controller.Index)
+	e.POST("/register", controller.Register)
+	e.POST("/login", controller.Login)
+
+	v1 := e.Group("/v1")
+	v1.GET("/user/:id", controller.DataUser, utils.Authorizer("admin"))
+	v1.GET("/profile", controller.Profle, utils.Authorizer("user"))
 
 	e.Logger.Debug(e.Start(":" + utils.Config.Service.Port))
 }
