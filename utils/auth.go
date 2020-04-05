@@ -3,6 +3,8 @@ package utils
 import (
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
@@ -13,10 +15,16 @@ type BoxToken struct {
 }
 
 type UserContext struct {
-	Exp uint64 `json:"exp"`
+	UserID   uint64 `json:"userId"`
+	Exp      uint64 `json:"exp"`
+	RoleName string `json:"roleName"`
 }
 
-var EchoContext echo.Context
+var (
+	EchoContext echo.Context
+	superRole   = "admin"
+	listRoles   = []string{"user"} // you can set another roles in here
+)
 
 func Authorizer(roles ...string) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -42,10 +50,27 @@ func Authorizer(roles ...string) echo.MiddlewareFunc {
 			}
 
 			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-				// do something
-				userContext := UserContext{
-					Exp: uint64(claims["exp"].(float64)),
+
+				roleFromJwt := strings.ToLower(claims["roleName"].(string))
+				if len(roles) == 1 {
+					roleFromRoutes := roles[0]
+
+					if roleFromJwt != superRole {
+						if !(intersectRoles(roleFromJwt, listRoles)) || (roleFromJwt != roleFromRoutes) {
+							return UnauthorizedResponse(c)
+						}
+					}
 				}
+
+				if len(claims["roleName"].(string)) == 0 {
+					return UnauthorizedResponse(c)
+				}
+
+				userContext := UserContext{
+					Exp:      uint64(claims["exp"].(float64)),
+					RoleName: claims["roleName"].(string),
+				}
+				userContext.UserID, _ = strconv.ParseUint(claims["userId"].(string), 10, 64)
 				c.Set("user", userContext)
 			} else {
 				return UnauthorizedResponse(c)
@@ -54,4 +79,13 @@ func Authorizer(roles ...string) echo.MiddlewareFunc {
 			return next(c)
 		}
 	}
+}
+
+func intersectRoles(role1 string, roles2 []string) bool {
+	for _, role2 := range roles2 {
+		if role1 == role2 {
+			return true
+		}
+	}
+	return false
 }

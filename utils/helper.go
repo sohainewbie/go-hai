@@ -3,10 +3,21 @@ package utils
 import (
 	"bytes"
 	"fmt"
+	"golang.org/x/crypto/bcrypt"
 	"math/rand"
 	"strings"
 	"time"
 )
+
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 10)
+	return string(bytes), err
+}
 
 func StringToTime(layout, str string) (error, time.Time) {
 	t, err := time.Parse(layout, str)
